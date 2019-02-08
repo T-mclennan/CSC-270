@@ -1,0 +1,46 @@
+# countZeros:    Tristan Mclennan 
+# 
+# 
+0xB000     # LA 0        (0)- Loads 0 into accumulator
+0x201B     # Store I        - Sets value of I to 0
+0x201C     # Store count    - Sets value of count to 0
+##### LOOP:
+0x101A     # Load N      (3)- Loads value of N into Accum
+0x901B     # SUB I          - Accum = I - Accum
+0x4000     # MVAC           - Moves accum into CTR
+0x5015     # JEQ Loopdone   - If CTR = 0, jump to end
+0xB01D     # LA ARR         - Loads address of ARR into Accum
+0x801B     # ADD I          - Accum = I + Accum
+0xE000     # MVAA           - Moves Accum into Areg
+0xC000     # LIA         (A)- Loads contents into Accum from the address in Areg
+0x4000     # MVAC           - Moves Accum into CTR
+0x500E     # JEG (++)       - If CTR = 0, jump to (++)
+0x7011     # JMP (I+)    (D)- Otherwise, jump to (I+)
+##### (++):
+0xB001     # LA 1        (E)- Loads 1 into Accum
+0x801C     # ADD count      - Accum = count + Accum
+0x201C     # Store count    - Stores count++ back into memory
+##### (I+):
+0xB001     # LA 1       (11)- Loads 1 into Accum
+0x801B     # ADD I          - Accum = I + Accum
+0x201B     # Store I        - Stores I++ back into memory
+0x7003     # JMP LOOP       - Jumps to start of loop
+##### (Loopdone): 
+0x0                      (15)
+0x0
+0x0
+0x0
+0x0        # - Temp      (19)
+0xA        # - N         (1A)
+0x0        # - I  	 (1B)
+0x0        # - count     (1C)
+0x0        # - ARR (0)   (1D)
+0x1        # - (1)
+0x3        # - (3)
+0x1bb      # - (443)
+0xfff8     # - (-9)
+0x0        # - (0)
+0x0        # - (0)
+0x22       # - (34)
+0xff80     # - (-128)
+0x0        # - (0)
